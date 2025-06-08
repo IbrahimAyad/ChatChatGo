@@ -1,0 +1,164 @@
+{
+  "restaurant": {
+    "name": "Mario's Italian Restaurant",
+    "description": "Authentic Italian cuisine featuring wood-fired pizzas and fresh handmade pasta",
+    "phone": "(555) 123-MARIO",
+    "address": "123 Main Street, Downtown",
+    "hours": {
+      "monday": "11:00 AM - 10:00 PM",
+      "tuesday": "11:00 AM - 10:00 PM", 
+      "wednesday": "11:00 AM - 10:00 PM",
+      "thursday": "11:00 AM - 10:00 PM",
+      "friday": "11:00 AM - 11:00 PM",
+      "saturday": "11:00 AM - 11:00 PM",
+      "sunday": "12:00 PM - 9:00 PM"
+    },
+    "specialties": ["Wood-fired pizza", "Fresh pasta", "Authentic Italian", "Wine selection"],
+    "dietary_options": ["Vegetarian", "Vegan options available", "Gluten-free pasta"]
+  },
+  "menu": {
+    "appetizers": [
+      {
+        "id": "app001",
+        "name": "Bruschetta Classica",
+        "price": 12.95,
+        "description": "Grilled bread topped with fresh tomatoes, basil, and garlic",
+        "ingredients": ["Bread", "Tomatoes", "Basil", "Garlic", "Olive oil"],
+        "allergens": ["Gluten"],
+        "dietary": ["Vegetarian"],
+        "popularity_rank": 1,
+        "social_mentions": 23,
+        "weekly_sales": 89
+      },
+      {
+        "id": "app002", 
+        "name": "Antipasto Platter",
+        "price": 18.95,
+        "description": "Selection of cured meats, cheeses, olives, and roasted vegetables",
+        "ingredients": ["Prosciutto", "Salami", "Mozzarella", "Olives", "Peppers"],
+        "allergens": ["Dairy"],
+        "dietary": [],
+        "popularity_rank": 2,
+        "social_mentions": 15,
+        "weekly_sales": 67
+      }
+    ],
+    "pizzas": [
+      {
+        "id": "pizza001",
+        "name": "Margherita Pizza",
+        "price": 16.95,
+        "description": "Classic pizza with fresh mozzarella, tomato sauce, and basil",
+        "ingredients": ["Pizza dough", "Mozzarella", "Tomato sauce", "Fresh basil"],
+        "allergens": ["Gluten", "Dairy"],
+        "dietary": ["Vegetarian"],
+        "popularity_rank": 1,
+        "social_mentions": 47,
+        "weekly_sales": 156,
+        "trending": true,
+        "chef_recommendation": true
+      },
+      {
+        "id": "pizza002",
+        "name": "Truffle Pasta Pizza",
+        "price": 24.95,
+        "description": "White sauce pizza with truffle oil, mushrooms, and arugula",
+        "ingredients": ["Pizza dough", "Truffle oil", "Mushrooms", "Arugula", "Parmesan"],
+        "allergens": ["Gluten", "Dairy"],
+        "dietary": ["Vegetarian"],
+        "popularity_rank": 3,
+        "social_mentions": 89,
+        "weekly_sales": 78,
+        "trending": true,
+        "social_viral": true
+      }
+    ],
+    "pasta": [
+      {
+        "id": "pasta001",
+        "name": "Spaghetti Carbonara",
+        "price": 19.95,
+        "description": "Traditional Roman pasta with eggs, pancetta, and Pecorino Romano",
+        "ingredients": ["Spaghetti", "Eggs", "Pancetta", "Pecorino Romano", "Black pepper"],
+        "allergens": ["Gluten", "Dairy", "Eggs"],
+        "dietary": [],
+        "popularity_rank": 2,
+        "social_mentions": 31,
+        "weekly_sales": 134
+      },
+      {
+        "id": "pasta002",
+        "name": "Truffle Pasta",
+        "price": 26.95,
+        "description": "Fresh pappardelle with truffle cream sauce and wild mushrooms",
+        "ingredients": ["Pappardelle", "Truffle cream", "Wild mushrooms", "Parmesan"],
+        "allergens": ["Gluten", "Dairy"],
+        "dietary": ["Vegetarian"],
+        "popularity_rank": 1,
+        "social_mentions": 92,
+        "weekly_sales": 98,
+        "trending": true,
+        "social_viral": true,
+        "chef_recommendation": true
+      }
+    ],
+    "desserts": [
+      {
+        "id": "dessert001",
+        "name": "Tiramisu",
+        "price": 8.95,
+        "description": "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone",
+        "ingredients": ["Ladyfingers", "Coffee", "Mascarpone", "Cocoa powder", "Marsala wine"],
+        "allergens": ["Gluten", "Dairy", "Eggs", "Alcohol"],
+        "dietary": [],
+        "popularity_rank": 1,
+        "social_mentions": 28,
+        "weekly_sales": 87
+      }
+    ]
+  },
+  "specials": [
+    {
+      "id": "special001",
+      "name": "Wood-fired Margherita Special",
+      "description": "20% off our signature Margherita Pizza",
+      "discount": "20%",
+      "valid_until": "2024-12-31",
+      "days": ["Monday", "Tuesday", "Wednesday"],
+      "active": true
+    },
+    {
+      "id": "special002", 
+      "name": "Pasta Tuesday",
+      "description": "Buy one pasta, get second 50% off",
+      "discount": "50% off second pasta",
+      "valid_until": "2024-12-31", 
+      "days": ["Tuesday"],
+      "active": true
+    }
+  ],
+  "analytics": {
+    "current_revenue_today": 3247,
+    "revenue_change_vs_last_week": "+12%",
+    "top_selling_item": "Margherita Pizza",
+    "social_trending_item": "Truffle Pasta",
+    "social_sentiment": "89%",
+    "peak_hour_today": "7:30 PM",
+    "current_wait_time": "15 minutes",
+    "weather_impact": "Rainy weather increased soup orders by 34% and decreased salad sales by 18%",
+    "total_orders_today": 67,
+    "average_order_value": 48.47
+  },
+  "wine_pairings": {
+    "pizza001": ["Chianti Classico", "Sangiovese"],
+    "pasta002": ["Barolo", "Brunello di Montalcino"],
+    "pasta001": ["Pinot Grigio", "Soave"]
+  },
+  "allergen_info": {
+    "gluten_free_options": ["Gluten-free pasta available for all pasta dishes"],
+    "vegan_options": ["Marinara pizza (no cheese)", "Aglio e olio pasta"],
+    "nut_allergies": "Please inform staff of any nut allergies"
+  },
+  "last_updated": "2024-12-10T15:30:00Z",
+  "version": "1.2"
+} 

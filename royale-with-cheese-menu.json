@@ -1,0 +1,204 @@
+{
+  "restaurant": {
+    "name": "Royale with Cheese",
+    "description": "Gourmet handcrafted burgers made with 100% fresh beef and innovative flavor combinations",
+    "phone": "(555) 123-ROYALE",
+    "address": "456 Burger Boulevard, Food District",
+    "hours": {
+      "monday": "11:00 AM - 10:00 PM",
+      "tuesday": "11:00 AM - 10:00 PM", 
+      "wednesday": "11:00 AM - 10:00 PM",
+      "thursday": "11:00 AM - 10:00 PM",
+      "friday": "11:00 AM - 11:00 PM",
+      "saturday": "11:00 AM - 11:00 PM",
+      "sunday": "12:00 PM - 9:00 PM"
+    },
+    "specialties": ["Gourmet burgers", "Signature fries", "Handcrafted bites", "Craft sodas"],
+    "dietary_options": ["Vegetarian patties available", "Gluten-free buns", "Vegan cheese options"]
+  },
+  "menu": [
+    {
+      "slug": "burgers",
+      "name": "Burgers",
+      "description": "Our signature handcrafted burgers, made with 100% fresh beef.",
+      "image": "https://placehold.co/600x400.png",
+      "dataAiHint": "gourmet burger",
+      "items": [
+        {
+          "id": "b_havana",
+          "name": "Havana (Breakfast Feel Burger)",
+          "description": "Start your day, any time! A beef patty topped with turkey bacon, a perfectly fried egg, our signature Royale fries, cheese fondue, chipotle ketchup, and Royale sauce.",
+          "price": "$13.99",
+          "image": "https://placehold.co/400x300.png",
+          "category": "burgers",
+          "dataAiHint": "breakfast burger egg bacon cheese",
+          "popularity_rank": 2,
+          "social_mentions": 45,
+          "weekly_sales": 89,
+          "trending": true,
+          "allergens": ["Eggs", "Dairy", "Gluten"],
+          "ingredients": ["Beef patty", "Turkey bacon", "Fried egg", "Royale fries", "Cheese fondue", "Chipotle ketchup", "Royale sauce"]
+        },
+        {
+          "id": "b_kruncher",
+          "name": "Kruncher (Mild-Medium Heat)",
+          "description": "Feel the crunch and the heat. This burger features a beef patty, Jalapeño Kruncher Chips, roasted pepper chili queso, southwestern roasted corn, and a slather of Cajun aioli.",
+          "price": "$12.99",
+          "image": "https://placehold.co/400x300.png",
+          "category": "burgers",
+          "dataAiHint": "spicy burger chips",
+          "popularity_rank": 3,
+          "social_mentions": 67,
+          "weekly_sales": 123,
+          "trending": true,
+          "spice_level": "mild-medium",
+          "allergens": ["Dairy", "Gluten"],
+          "ingredients": ["Beef patty", "Jalapeño Kruncher Chips", "Roasted pepper chili queso", "Southwestern roasted corn", "Cajun aioli"]
+        },
+        {
+          "id": "b_mia_wallace",
+          "name": "Mia Wallace (BBQ Burger)",
+          "description": "A burger with a BBQ twist. Piled with a beef patty, mesquite BBQ chips, fire-roasted poblanos & corn, house-smoked candied turkey bacon, honey-ancho BBQ aioli, and a blend of American-Swiss cheese.",
+          "price": "$14.49",
+          "image": "https://placehold.co/400x300.png",
+          "category": "burgers",
+          "dataAiHint": "bbq burger bacon",
+          "popularity_rank": 1,
+          "social_mentions": 89,
+          "weekly_sales": 156,
+          "trending": true,
+          "chef_recommendation": true,
+          "social_viral": true,
+          "allergens": ["Dairy", "Gluten"],
+          "ingredients": ["Beef patty", "Mesquite BBQ chips", "Fire-roasted poblanos", "Corn", "House-smoked candied turkey bacon", "Honey-ancho BBQ aioli", "American-Swiss cheese"]
+        },
+        {
+          "id": "b_just_a_burger",
+          "name": "Just A Burger (Classic)",
+          "description": "For the purists. A beef patty with cheese fondue, crisp artisan romaine, red onions, Nablus pickles, seasonal tomatoes, ketchup, and mayonnaise.",
+          "price": "$10.99",
+          "image": "https://placehold.co/400x300.png",
+          "category": "burgers",
+          "dataAiHint": "classic burger simple",
+          "popularity_rank": 4,
+          "social_mentions": 34,
+          "weekly_sales": 178,
+          "allergens": ["Dairy", "Gluten", "Eggs"],
+          "ingredients": ["Beef patty", "Cheese fondue", "Artisan romaine", "Red onions", "Nablus pickles", "Seasonal tomatoes", "Ketchup", "Mayonnaise"]
+        },
+        {
+          "id": "b_beirut",
+          "name": "Beirut",
+          "description": "A taste of Mediterranean flavors, featuring creamy cole slaw, fries, Nablus pickles, seasonal tomatoes, and cheese fondue, all topped with ketchup.",
+          "price": "$13.49",
+          "image": "https://placehold.co/400x300.png",
+          "category": "burgers",
+          "dataAiHint": "mediterranean burger fries",
+          "popularity_rank": 5,
+          "social_mentions": 23,
+          "weekly_sales": 67,
+          "allergens": ["Dairy", "Gluten"],
+          "ingredients": ["Beef patty", "Creamy cole slaw", "Fries", "Nablus pickles", "Seasonal tomatoes", "Cheese fondue", "Ketchup"]
+        }
+      ]
+    },
+    {
+      "slug": "bites",
+      "name": "Bites",
+      "description": "Perfect for sharing or as a side. Choose from our diverse range of uniquely flavored fries and appetizers.",
+      "image": "https://placehold.co/600x400.png",
+      "dataAiHint": "appetizers fries",
+      "items": [
+        {
+          "id": "s1_nacho_ravioli",
+          "name": "Nacho Cheese Ravioli",
+          "description": "Experience a bold twist on a classic with our handmade Doritos Ravioli, deep-fried to perfection and stuffed with jalapeño nacho cheese. Served with a side of our 'New World' roasted tomato sauce. A culinary innovation inspired by chef Michael Chamas.",
+          "price": "$9.99",
+          "image": "https://placehold.co/400x300.png",
+          "category": "bites",
+          "dataAiHint": "nacho ravioli appetizer",
+          "popularity_rank": 1,
+          "social_mentions": 78,
+          "weekly_sales": 134,
+          "trending": true,
+          "social_viral": true,
+          "chef_special": true,
+          "allergens": ["Dairy", "Gluten"],
+          "ingredients": ["Handmade ravioli", "Doritos coating", "Jalapeño nacho cheese", "New World roasted tomato sauce"]
+        },
+        {
+          "id": "s2_soft_pretzels",
+          "name": "Soft Pretzels",
+          "description": "Enjoy a trio of freshly baked soft pretzels, perfect for dipping into our rich, creamy cheese fondue. A comforting classic that's perfect for sharing or enjoying solo.",
+          "price": "$8.99",
+          "image": "https://placehold.co/400x300.png",
+          "category": "bites",
+          "dataAiHint": "soft pretzels cheese",
+          "popularity_rank": 2,
+          "social_mentions": 45,
+          "weekly_sales": 89,
+          "allergens": ["Dairy", "Gluten"],
+          "ingredients": ["Fresh soft pretzels", "Cheese fondue"]
+        },
+        {
+          "id": "s3_fried_mac_cheese",
+          "name": "Fried Mac & Cheese",
+          "description": "Indulge in our house-made mac and cheese, hand-breaded and fried to golden perfection. Served with a side of ranch for dipping.",
+          "price": "$7.99",
+          "image": "https://placehold.co/400x300.png",
+          "category": "bites",
+          "dataAiHint": "fried mac cheese comfort food",
+          "popularity_rank": 3,
+          "social_mentions": 56,
+          "weekly_sales": 98,
+          "allergens": ["Dairy", "Gluten", "Eggs"],
+          "ingredients": ["House-made mac and cheese", "Hand-breaded coating", "Ranch dressing"]
+        }
+      ]
+    }
+  ],
+  "specials": [
+    {
+      "id": "special001",
+      "name": "Mia Wallace Monday",
+      "description": "25% off our signature Mia Wallace BBQ Burger",
+      "discount": "25%",
+      "valid_until": "2024-12-31",
+      "days": ["Monday"],
+      "active": true
+    },
+    {
+      "id": "special002", 
+      "name": "Bite Night Tuesday",
+      "description": "Buy 2 bites, get 1 free",
+      "discount": "Buy 2 Get 1 Free",
+      "valid_until": "2024-12-31", 
+      "days": ["Tuesday"],
+      "active": true
+    }
+  ],
+  "analytics": {
+    "current_revenue_today": 2847,
+    "revenue_change_vs_last_week": "+18%",
+    "top_selling_item": "Mia Wallace BBQ Burger",
+    "social_trending_item": "Nacho Cheese Ravioli",
+    "social_sentiment": "92%",
+    "peak_hour_today": "7:15 PM",
+    "current_wait_time": "8 minutes",
+    "weather_impact": "Sunny weather increased outdoor seating by 45% and cold drink sales by 28%",
+    "total_orders_today": 89,
+    "average_order_value": 31.97
+  },
+  "drink_pairings": {
+    "b_mia_wallace": ["Craft Root Beer", "Bourbon Cola"],
+    "s1_nacho_ravioli": ["Spicy Ginger Ale", "Craft Lemonade"],
+    "b_kruncher": ["Ice Cold Milk", "Cucumber Mint Water"]
+  },
+  "allergen_info": {
+    "gluten_free_options": ["Gluten-free buns available for all burgers", "Lettuce wraps available"],
+    "vegan_options": ["Plant-based patties available", "Vegan cheese options", "Dairy-free sauces"],
+    "nut_allergies": "Kitchen is not nut-free - please inform staff of allergies"
+  },
+  "last_updated": "2024-12-10T15:45:00Z",
+  "version": "1.0"
+} 

@@ -1,0 +1,75 @@
+{
+  "name": "ChatChatGo Restaurant Test Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "restaurant-test",
+        "responseMode": "responseNode"
+      },
+      "id": "webhook-trigger",
+      "name": "Restaurant Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Restaurant AI Response Generator\nconst message = $input.first().json.message || '';\nconst lowerMessage = message.toLowerCase();\n\nlet response = '';\nlet orderDetected = false;\nlet items = [];\n\n// Menu intelligence\nif (lowerMessage.includes('menu') || lowerMessage.includes('food')) {\n  response = \"🍽️ Our trending items today: Truffle Burger ($28), Caesar Salad ($16), Pasta Carbonara ($22). The Truffle Burger is going viral on TikTok with 2.3K views!\";\n}\n// Social media insights\nelse if (lowerMessage.includes('social') || lowerMessage.includes('viral')) {\n  response = \"📱 Social Media Pulse: 147 mentions today with 78% positive sentiment. Virality index: 85/100. #TruffleBurger is trending!\";\n}\n// Revenue analytics\nelse if (lowerMessage.includes('sales') || lowerMessage.includes('revenue')) {\n  response = \"💰 Today's revenue: $15,420 with avg order value $28.50. We're 15% above yesterday's performance!\";\n}\n// Order detection\nelse if (lowerMessage.includes('order') || lowerMessage.includes('want') || lowerMessage.includes('get')) {\n  response = \"🛒 I'd be happy to help with your order! Our Truffle Burger is trending and highly recommended. Would you like to add it to your order?\";\n  orderDetected = true;\n  items = [{ name: 'Truffle Burger', price: 28, trending: true }];\n}\n// Default response\nelse {\n  response = `I heard: \"${message}\". I'm your restaurant AI assistant! I can help with menu info, social media insights, sales analytics, and taking orders. What would you like to know?`;\n}\n\nreturn {\n  response,\n  orderDetected,\n  items,\n  timestamp: new Date().toISOString(),\n  processed: true\n};\n          "
+      },
+      "id": "ai-processor",
+      "name": "Restaurant AI Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "Content-Type": "application/json"
+          }
+        }
+      },
+      "id": "webhook-response",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Restaurant Webhook": {
+      "main": [
+        [
+          {
+            "node": "Restaurant AI Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restaurant AI Processor": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

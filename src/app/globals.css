@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom ChatChatGo styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Chat Widget Custom Styles */
+  .chat-widget {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+    word-wrap: break-word;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  .message-user {
+    background: var(--widget-primary, #0ea5e9);
+  }
+  
+  .message-assistant {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  
+  /* Glassmorphism effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Loading animations */
+  .pulse-dot {
+    animation: pulse-dot 1.4s ease-in-out infinite both;
+    animation-delay: 0.15s;
+  }
+  
+  .pulse-dot:nth-child(1) { animation-delay: 0s; }
+  .pulse-dot:nth-child(2) { animation-delay: 0.15s; }
+  .pulse-dot:nth-child(3) { animation-delay: 0.3s; }
+  
+  @keyframes pulse-dot {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Voice recording animation */
+  .recording-pulse {
+    animation: recording-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes recording-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+  }
+  
+  /* Smooth scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 2px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+  
+  /* Message bubble animations */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Pulse animation for dots */
+  .pulse-dot:nth-child(1) { animation-delay: 0s; }
+  .pulse-dot:nth-child(2) { animation-delay: 0.15s; }
+  .pulse-dot:nth-child(3) { animation-delay: 0.3s; }
+  
+  /* Voice recording pulse animation */
+  @keyframes voicePulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+  }
+  
+  .voice-recording {
+    animation: voicePulse 1.5s infinite;
+  }
+  
+  /* Voice waveform animation */
+  @keyframes waveform {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
+  }
+  
+  .waveform-bar {
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+    width: 3px;
+    margin: 0 1px;
+    border-radius: 2px;
+    animation: waveform 1s ease-in-out infinite;
+  }
+  
+  .waveform-bar:nth-child(1) { animation-delay: 0s; }
+  .waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+  .waveform-bar:nth-child(3) { animation-delay: 0.2s; }
+  .waveform-bar:nth-child(4) { animation-delay: 0.3s; }
+  .waveform-bar:nth-child(5) { animation-delay: 0.4s; }
+  
+  /* Mic button glow effect */
+  .mic-glow {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+  }
+  
+  /* Speaking indicator */
+  @keyframes speaking {
+    0%, 100% { 
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% { 
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+  
+  .speaking-indicator {
+    animation: speaking 0.8s ease-in-out infinite;
+  }
+  
+  /* Voice visualization bars */
+  .voice-bars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 20px;
+  }
+  
+  .voice-bar {
+    width: 2px;
+    background: linear-gradient(to top, #8b5cf6, #ec4899);
+    border-radius: 1px;
+    animation: voiceActivity 0.6s ease-in-out infinite alternate;
+  }
+  
+  .voice-bar:nth-child(1) { animation-delay: 0s; }
+  .voice-bar:nth-child(2) { animation-delay: 0.1s; }
+  .voice-bar:nth-child(3) { animation-delay: 0.2s; }
+  .voice-bar:nth-child(4) { animation-delay: 0.3s; }
+  .voice-bar:nth-child(5) { animation-delay: 0.4s; }
+  
+  @keyframes voiceActivity {
+    0% { height: 4px; opacity: 0.3; }
+    100% { height: 16px; opacity: 1; }
+  }
+  
+  /* Gradient text animation */
+  @keyframes gradientText {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .gradient-text {
+    background: linear-gradient(-45deg, #8b5cf6, #ec4899, #f59e0b, #10b981);
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientText 3s ease infinite;
+  }
+  
+  /* Environment ranking styles */
+  .ranking-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .ranking-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ranking-score {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  /* Button hover effects */
+  .btn-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-gradient:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+}
+
+@layer utilities {
+  /* Custom widget positioning */
+  .widget-bottom-right {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+  
+  .widget-bottom-left {
+    bottom: 1.25rem;
+    left: 1.25rem;
+  }
+  
+  .widget-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Text gradients */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+} 

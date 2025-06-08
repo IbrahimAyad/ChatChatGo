@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royale with Cheese - Dynamic Menu</title>
+</head>
+<body>
+    <header>
+        <h1>{{restaurant_name}} - Gourmet Burger Restaurant</h1>
+        <p><strong>Phone:</strong> {{phone_number}} | <strong>Hours:</strong> {{business_hours}}</p>
+        <p><strong>Current Revenue Today:</strong> ${{current_revenue}} ({{revenue_change}} vs last week)</p>
+        <p><strong>Current Wait Time:</strong> {{wait_time}} | <strong>Peak Hour:</strong> {{peak_hour}}</p>
+    </header>
+
+    <section id="current-specials">
+        <h2>🔥 Today's Specials</h2>
+        <div class="special-highlight">
+            <h3>{{current_special}}</h3>
+            <p><strong>Trending Item:</strong> {{social_trending_item}} ({{social_sentiment}} positive sentiment)</p>
+            <p><strong>Weather Impact:</strong> {{weather_impact}}</p>
+        </div>
+    </section>
+
+    <section id="burgers">
+        <h2>🍔 Signature Burgers</h2>
+        <p>Our handcrafted burgers made with 100% fresh beef</p>
+        
+        <div class="menu-item trending">
+            <h3>Mia Wallace (BBQ Burger) - $14.49 ⭐ CHEF'S CHOICE</h3>
+            <p>A burger with a BBQ twist. Piled with a beef patty, mesquite BBQ chips, fire-roasted poblanos & corn, house-smoked candied turkey bacon, honey-ancho BBQ aioli, and a blend of American-Swiss cheese.</p>
+            <p><strong>Popularity:</strong> #1 Best Seller | <strong>Social Mentions:</strong> 89 this week | <strong>Weekly Sales:</strong> 156 orders</p>
+            <p><strong>Allergens:</strong> Dairy, Gluten | <strong>Pair with:</strong> Craft Root Beer, Bourbon Cola</p>
+        </div>
+
+        <div class="menu-item trending">
+            <h3>Havana (Breakfast Feel Burger) - $13.99 🌅 TRENDING</h3>
+            <p>Start your day, any time! A beef patty topped with turkey bacon, a perfectly fried egg, our signature Royale fries, cheese fondue, chipotle ketchup, and Royale sauce.</p>
+            <p><strong>Popularity:</strong> #2 | <strong>Social Mentions:</strong> 45 this week | <strong>Weekly Sales:</strong> 89 orders</p>
+            <p><strong>Allergens:</strong> Eggs, Dairy, Gluten | <strong>Perfect for:</strong> All-day dining</p>
+        </div>
+
+        <div class="menu-item spicy">
+            <h3>Kruncher (Mild-Medium Heat) - $12.99 🌶️ SPICY</h3>
+            <p>Feel the crunch and the heat. This burger features a beef patty, Jalapeño Kruncher Chips, roasted pepper chili queso, southwestern roasted corn, and a slather of Cajun aioli.</p>
+            <p><strong>Popularity:</strong> #3 | <strong>Social Mentions:</strong> 67 this week | <strong>Weekly Sales:</strong> 123 orders</p>
+            <p><strong>Heat Level:</strong> Mild-Medium | <strong>Allergens:</strong> Dairy, Gluten</p>
+        </div>
+
+        <div class="menu-item classic">
+            <h3>Just A Burger (Classic) - $10.99 🏛️ CLASSIC</h3>
+            <p>For the purists. A beef patty with cheese fondue, crisp artisan romaine, red onions, Nablus pickles, seasonal tomatoes, ketchup, and mayonnaise.</p>
+            <p><strong>Popularity:</strong> #4 | <strong>Weekly Sales:</strong> 178 orders (highest volume)</p>
+            <p><strong>Allergens:</strong> Dairy, Gluten, Eggs</p>
+        </div>
+
+        <div class="menu-item mediterranean">
+            <h3>Beirut - $13.49 🌍 MEDITERRANEAN</h3>
+            <p>A taste of Mediterranean flavors, featuring creamy cole slaw, fries, Nablus pickles, seasonal tomatoes, and cheese fondue, all topped with ketchup.</p>
+            <p><strong>Popularity:</strong> #5 | <strong>Social Mentions:</strong> 23 this week</p>
+            <p><strong>Allergens:</strong> Dairy, Gluten</p>
+        </div>
+    </section>
+
+    <section id="bites">
+        <h2>🍟 Bites & Appetizers</h2>
+        <p>Perfect for sharing or as a side</p>
+
+        <div class="menu-item viral">
+            <h3>Nacho Cheese Ravioli - $9.99 🔥 VIRAL ON SOCIAL</h3>
+            <p>Experience a bold twist on a classic with our handmade Doritos Ravioli, deep-fried to perfection and stuffed with jalapeño nacho cheese. Served with a side of our 'New World' roasted tomato sauce. A culinary innovation inspired by chef Michael Chamas.</p>
+            <p><strong>Popularity:</strong> #1 Appetizer | <strong>Social Mentions:</strong> 78 this week | <strong>Status:</strong> TRENDING & VIRAL</p>
+            <p><strong>Chef Special:</strong> Created by Michael Chamas | <strong>Allergens:</strong> Dairy, Gluten</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>Soft Pretzels - $8.99 🥨</h3>
+            <p>Enjoy a trio of freshly baked soft pretzels, perfect for dipping into our rich, creamy cheese fondue. A comforting classic that's perfect for sharing or enjoying solo.</p>
+            <p><strong>Social Mentions:</strong> 45 this week | <strong>Allergens:</strong> Dairy, Gluten</p>
+        </div>
+
+        <div class="menu-item">
+            <h3>Fried Mac & Cheese - $7.99 🧀</h3>
+            <p>Indulge in our house-made mac and cheese, hand-breaded and fried to golden perfection. Served with a side of ranch for dipping.</p>
+            <p><strong>Social Mentions:</strong> 56 this week | <strong>Allergens:</strong> Dairy, Gluten, Eggs</p>
+        </div>
+    </section>
+
+    <section id="specials-promos">
+        <h2>💰 Weekly Specials</h2>
+        <div class="special">
+            <h3>Mia Wallace Monday - 25% OFF</h3>
+            <p>Every Monday: 25% off our signature Mia Wallace BBQ Burger</p>
+        </div>
+        <div class="special">
+            <h3>Bite Night Tuesday - Buy 2 Get 1 Free</h3>
+            <p>Every Tuesday: Buy any 2 bites, get the third one free</p>
+        </div>
+    </section>
+
+    <section id="dietary-info">
+        <h2>🌱 Dietary Options</h2>
+        <ul>
+            <li><strong>Gluten-Free:</strong> Gluten-free buns available for all burgers, lettuce wraps available</li>
+            <li><strong>Vegan:</strong> Plant-based patties available, vegan cheese options, dairy-free sauces</li>
+            <li><strong>Allergies:</strong> Kitchen is not nut-free - please inform staff of any allergies</li>
+        </ul>
+    </section>
+
+    <section id="analytics">
+        <h2>📊 Live Restaurant Analytics</h2>
+        <p><strong>Today's Performance:</strong></p>
+        <ul>
+            <li>Revenue: ${{current_revenue}} ({{revenue_change}} change)</li>
+            <li>Orders: {{total_orders_today}} | Average Order: ${{average_order_value}}</li>
+            <li>Top Seller: {{top_selling_item}}</li>
+            <li>Social Trending: {{social_trending_item}}</li>
+            <li>Customer Sentiment: {{social_sentiment}} positive</li>
+            <li>Peak Hour: {{peak_hour}}</li>
+            <li>Current Wait: {{wait_time}}</li>
+            <li>Weather Impact: {{weather_impact}}</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p><strong>Contact:</strong> {{phone_number}} | <strong>Hours:</strong> {{business_hours}}</p>
+        <p><em>Last Updated: {{last_updated}} | Version: {{menu_version}}</em></p>
+    </footer>
+</body>
+</html> 

@@ -1,0 +1,78 @@
+{
+  "restaurantName": "Mario's Italian Bistro",
+  "cuisine": "Italian",
+  "location": "123 Main St, Brooklyn, NY 11201",
+  "phone": "(718) 555-0123",
+  "hours": "Mon-Thu: 11am-10pm, Fri-Sat: 11am-11pm, Sun: 12pm-9pm",
+  "website": "https://marios-bistro.demo",
+  
+  "menu": [
+    {
+      "name": "Margherita Pizza",
+      "description": "Fresh mozzarella, tomato sauce, and basil on our house-made dough",
+      "price": "$18.99",
+      "category": "Pizzas",
+      "allergens": ["gluten", "dairy"],
+      "availability": true,
+      "isPopular": true
+    },
+    {
+      "name": "Spaghetti Carbonara",
+      "description": "Classic Roman pasta with eggs, pancetta, pecorino cheese, and black pepper",
+      "price": "$22.99",
+      "category": "Pasta",
+      "allergens": ["gluten", "dairy", "eggs"],
+      "availability": true,
+      "isPopular": true
+    },
+    {
+      "name": "Caesar Salad",
+      "description": "Crisp romaine lettuce, parmesan cheese, croutons, and our house Caesar dressing",
+      "price": "$14.99",
+      "category": "Salads",
+      "allergens": ["gluten", "dairy"],
+      "availability": true
+    },
+    {
+      "name": "Tiramisu",
+      "description": "Traditional Italian dessert with espresso-soaked ladyfingers and mascarpone",
+      "price": "$8.99",
+      "category": "Desserts",
+      "allergens": ["gluten", "dairy", "eggs"],
+      "availability": true,
+      "isPopular": true
+    },
+    {
+      "name": "Chicken Parmigiana",
+      "description": "Breaded chicken breast with marinara sauce and melted mozzarella, served with spaghetti",
+      "price": "$24.99",
+      "category": "Main Courses",
+      "allergens": ["gluten", "dairy"],
+      "availability": true
+    }
+  ],
+  
+  "specialOffers": [
+    "Lunch Special: Any pasta + salad + drink for $19.99 (Mon-Fri 11am-3pm)",
+    "Family Night: 15% off orders over $50 (Sundays)",
+    "Happy Hour: Half-price appetizers (Weekdays 4pm-6pm)"
+  ],
+  
+  "aiContext": "Welcome to Mario's Italian Bistro!\n\nMENU:\n1. Margherita Pizza - $18.99\n   Fresh mozzarella, tomato sauce, and basil on our house-made dough\n2. Spaghetti Carbonara - $22.99\n   Classic Roman pasta with eggs, pancetta, pecorino cheese, and black pepper\n3. Caesar Salad - $14.99\n   Crisp romaine lettuce, parmesan cheese, croutons, and our house Caesar dressing\n4. Tiramisu - $8.99\n   Traditional Italian dessert with espresso-soaked ladyfingers and mascarpone\n5. Chicken Parmigiana - $24.99\n   Breaded chicken breast with marinara sauce and melted mozzarella, served with spaghetti\n\nSPECIAL OFFERS:\n• Lunch Special: Any pasta + salad + drink for $19.99 (Mon-Fri 11am-3pm)\n• Family Night: 15% off orders over $50 (Sundays)\n• Happy Hour: Half-price appetizers (Weekdays 4pm-6pm)",
+  
+  "source": "demo-setup",
+  "dataSource": "manual",
+  "lastScraped": "2025-06-07T14:52:00.000Z",
+  "lastUpdated": "2025-06-07T14:52:00.000Z",
+  "isStale": false,
+  
+  "scrapingHistory": [
+    {
+      "timestamp": "2025-06-07T14:52:00.000Z",
+      "source": "demo-setup",
+      "success": true,
+      "itemsFound": 5,
+      "processingTime": 50
+    }
+  ]
+} 

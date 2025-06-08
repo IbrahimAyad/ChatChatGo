@@ -1,0 +1,109 @@
+ROYALE WITH CHEESE - DYNAMIC MENU
+===============================================
+
+RESTAURANT INFO:
+- Name: {{restaurant_name}}
+- Phone: {{phone_number}}
+- Hours: {{business_hours}}
+- Current Revenue: ${{current_revenue}} ({{revenue_change}} vs last week)
+- Current Wait Time: {{wait_time}}
+- Peak Hour: {{peak_hour}}
+
+TODAY'S SPECIALS & TRENDING:
+🔥 Current Special: {{current_special}}
+📱 Social Trending: {{social_trending_item}} ({{social_sentiment}} positive sentiment)
+🌤️ Weather Impact: {{weather_impact}}
+
+SIGNATURE BURGERS:
+==================
+
+1. MIA WALLACE (BBQ BURGER) - $14.49 ⭐ CHEF'S CHOICE
+   Description: A burger with a BBQ twist. Piled with a beef patty, mesquite BBQ chips, fire-roasted poblanos & corn, house-smoked candied turkey bacon, honey-ancho BBQ aioli, and a blend of American-Swiss cheese.
+   Popularity: #1 Best Seller
+   Social Mentions: 89 this week
+   Weekly Sales: 156 orders
+   Allergens: Dairy, Gluten
+   Drink Pairings: Craft Root Beer, Bourbon Cola
+   Status: TRENDING, CHEF RECOMMENDATION
+
+2. HAVANA (BREAKFAST FEEL BURGER) - $13.99 🌅 TRENDING
+   Description: Start your day, any time! A beef patty topped with turkey bacon, a perfectly fried egg, our signature Royale fries, cheese fondue, chipotle ketchup, and Royale sauce.
+   Popularity: #2
+   Social Mentions: 45 this week
+   Weekly Sales: 89 orders
+   Allergens: Eggs, Dairy, Gluten
+   Perfect for: All-day dining
+   Status: TRENDING
+
+3. KRUNCHER (MILD-MEDIUM HEAT) - $12.99 🌶️ SPICY
+   Description: Feel the crunch and the heat. This burger features a beef patty, Jalapeño Kruncher Chips, roasted pepper chili queso, southwestern roasted corn, and a slather of Cajun aioli.
+   Popularity: #3
+   Social Mentions: 67 this week
+   Weekly Sales: 123 orders
+   Heat Level: Mild-Medium
+   Allergens: Dairy, Gluten
+   Status: TRENDING
+
+4. JUST A BURGER (CLASSIC) - $10.99 🏛️ CLASSIC
+   Description: For the purists. A beef patty with cheese fondue, crisp artisan romaine, red onions, Nablus pickles, seasonal tomatoes, ketchup, and mayonnaise.
+   Popularity: #4
+   Weekly Sales: 178 orders (highest volume)
+   Allergens: Dairy, Gluten, Eggs
+
+5. BEIRUT - $13.49 🌍 MEDITERRANEAN
+   Description: A taste of Mediterranean flavors, featuring creamy cole slaw, fries, Nablus pickles, seasonal tomatoes, and cheese fondue, all topped with ketchup.
+   Popularity: #5
+   Social Mentions: 23 this week
+   Allergens: Dairy, Gluten
+
+BITES & APPETIZERS:
+==================
+
+1. NACHO CHEESE RAVIOLI - $9.99 🔥 VIRAL ON SOCIAL
+   Description: Experience a bold twist on a classic with our handmade Doritos Ravioli, deep-fried to perfection and stuffed with jalapeño nacho cheese. Served with a side of our 'New World' roasted tomato sauce. A culinary innovation inspired by chef Michael Chamas.
+   Popularity: #1 Appetizer
+   Social Mentions: 78 this week
+   Status: TRENDING & VIRAL
+   Chef Special: Created by Michael Chamas
+   Allergens: Dairy, Gluten
+
+2. SOFT PRETZELS - $8.99 🥨
+   Description: Enjoy a trio of freshly baked soft pretzels, perfect for dipping into our rich, creamy cheese fondue. A comforting classic that's perfect for sharing or enjoying solo.
+   Social Mentions: 45 this week
+   Allergens: Dairy, Gluten
+
+3. FRIED MAC & CHEESE - $7.99 🧀
+   Description: Indulge in our house-made mac and cheese, hand-breaded and fried to golden perfection. Served with a side of ranch for dipping.
+   Social Mentions: 56 this week
+   Allergens: Dairy, Gluten, Eggs
+
+WEEKLY SPECIALS:
+===============
+- MIA WALLACE MONDAY: 25% off our signature Mia Wallace BBQ Burger
+- BITE NIGHT TUESDAY: Buy any 2 bites, get the third one free
+
+DIETARY OPTIONS:
+===============
+- Gluten-Free: Gluten-free buns available for all burgers, lettuce wraps available
+- Vegan: Plant-based patties available, vegan cheese options, dairy-free sauces
+- Allergies: Kitchen is not nut-free - please inform staff of any allergies
+
+LIVE RESTAURANT ANALYTICS:
+=========================
+- Today's Revenue: ${{current_revenue}} ({{revenue_change}} change)
+- Total Orders Today: {{total_orders_today}}
+- Average Order Value: ${{average_order_value}}
+- Top Selling Item: {{top_selling_item}}
+- Social Trending Item: {{social_trending_item}}
+- Customer Sentiment: {{social_sentiment}} positive
+- Peak Hour: {{peak_hour}}
+- Current Wait Time: {{wait_time}}
+- Weather Impact: {{weather_impact}}
+
+CONTACT & HOURS:
+===============
+Phone: {{phone_number}}
+Hours: {{business_hours}}
+
+Last Updated: {{last_updated}}
+Menu Version: {{menu_version}} 

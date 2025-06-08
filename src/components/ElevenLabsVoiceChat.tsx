@@ -23,8 +23,8 @@ export default function ElevenLabsVoiceChat({
     timestamp: Date;
   }>>([]);
   const [micPermission, setMicPermission] = useState<boolean | null>(null);
-  const [inputText, setInputText] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [inputText, setInputText] = useState('');
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);

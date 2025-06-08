@@ -402,6 +402,12 @@ export default function AdminDashboard() {
                         View
                       </button>
                       <button
+                        onClick={() => window.open(`/dashboard/${tenant.id}`, '_blank')}
+                        className="bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 hover:text-purple-200 px-3 py-1 rounded-lg border border-purple-400/30 transition-all duration-200"
+                      >
+                        📊 Dashboard
+                      </button>
+                      <button
                         onClick={() => testTenantChat(tenant.id)}
                         disabled={testingTenant === tenant.id}
                         className="bg-green-500/20 hover:bg-green-500/30 text-green-300 hover:text-green-200 px-3 py-1 rounded-lg border border-green-400/30 transition-all duration-200 disabled:opacity-50"

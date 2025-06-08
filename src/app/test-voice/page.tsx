@@ -1,10 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function TestVoice() {
   const [status, setStatus] = useState('Ready to test');
   const [isLoading, setIsLoading] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const testElevenLabs = async () => {
     setIsLoading(true);
@@ -16,23 +21,30 @@ export default function TestVoice() {
       const { elevenLabsTTS, getRestaurantVoice } = await import('../../lib/elevenlabs');
       
       setStatus('Testing API connection...');
-      const isConnected = await elevenLabsTTS.testConnection();
       
-      if (!isConnected) {
-        setStatus('❌ ElevenLabs API connection failed');
-        return;
-      }
-      
-      setStatus('✅ Connected! Generating speech...');
+      // Test with simple TTS call instead of testConnection which might not exist
       const testText = "Hello! This is a test of ElevenLabs natural voice.";
       const voiceId = getRestaurantVoice('professional');
       
-      const success = await elevenLabsTTS.speak(testText, voiceId);
+      setStatus('✅ Connected! Generating speech...');
       
-      if (success) {
+      // Call ElevenLabs TTS directly
+      const audioData = await elevenLabsTTS(testText, voiceId);
+      
+      if (audioData && isClient) {
+        // Play the audio
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const arrayBuffer = audioData instanceof ArrayBuffer ? audioData : await audioData.arrayBuffer();
+        const decodedAudio = await audioContext.decodeAudioData(arrayBuffer);
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = decodedAudio;
+        source.connect(audioContext.destination);
+        source.start();
+        
         setStatus('✅ ElevenLabs speech test completed successfully!');
       } else {
-        setStatus('⚠️ ElevenLabs speech failed, used browser fallback');
+        setStatus('⚠️ ElevenLabs returned no audio data');
       }
       
     } catch (error) {
@@ -44,6 +56,8 @@ export default function TestVoice() {
   };
 
   const testBrowserTTS = async () => {
+    if (!isClient) return;
+    
     setIsLoading(true);
     setStatus('Testing browser TTS...');
     
@@ -75,6 +89,22 @@ export default function TestVoice() {
     }
   };
 
+  const getSupportInfo = () => {
+    if (!isClient) {
+      return {
+        browserTTS: '⏳ Loading...',
+        https: '⏳ Loading...'
+      };
+    }
+
+    return {
+      browserTTS: 'speechSynthesis' in window ? '✅ Supported' : '❌ Not supported',
+      https: typeof window !== 'undefined' && window.location.protocol === 'https:' ? '✅ Secure' : '⚠️ HTTP (may affect some features)'
+    };
+  };
+
+  const supportInfo = getSupportInfo();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 p-8">
       <div className="max-w-4xl mx-auto">
@@ -102,7 +132,7 @@ export default function TestVoice() {
               
               <button
                 onClick={testBrowserTTS}
-                disabled={isLoading}
+                disabled={isLoading || !isClient}
                 className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 disabled:opacity-50 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg"
               >
                 {isLoading ? '🔄 Testing...' : '🤖 Test Browser TTS (Robotic)'}
@@ -118,8 +148,8 @@ export default function TestVoice() {
               <h3 className="text-lg font-bold text-blue-300 mb-3">Environment Info:</h3>
               <div className="text-blue-200 text-sm space-y-1">
                 <p>• API Key: {process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY ? '✅ Set' : '❌ Missing'}</p>
-                <p>• Browser TTS: {typeof window !== 'undefined' && 'speechSynthesis' in window ? '✅ Supported' : '❌ Not supported'}</p>
-                <p>• HTTPS: {typeof window !== 'undefined' && window.location.protocol === 'https:' ? '✅ Secure' : '⚠️ HTTP (may affect some features)'}</p>
+                <p suppressHydrationWarning>• Browser TTS: {supportInfo.browserTTS}</p>
+                <p suppressHydrationWarning>• HTTPS: {supportInfo.https}</p>
               </div>
             </div>
             

@@ -245,6 +245,13 @@
     "industry": "restaurant",
     "status": "trial",
     "subscription": "professional",
+    "address": {
+      "street": "4163 Cass Avenue",
+      "city": "Detroit",
+      "state": "MI",
+      "zipCode": "48201",
+      "phone": "(313) 315-3014"
+    },
     "settings": {
       "aiModel": "gpt-3.5-turbo",
       "temperature": 0.7,
@@ -257,46 +264,50 @@
         "style": 0,
         "use_speaker_boost": true
       },
-      "timezone": "America/New_York",
+      "timezone": "America/Detroit",
       "language": "en",
       "businessHours": {
         "monday": {
           "open": true,
-          "openTime": "09:00",
-          "closeTime": "17:00"
+          "openTime": "11:00",
+          "closeTime": "20:00"
         },
         "tuesday": {
           "open": true,
-          "openTime": "09:00",
-          "closeTime": "17:00"
+          "openTime": "11:00",
+          "closeTime": "20:00"
         },
         "wednesday": {
           "open": true,
-          "openTime": "09:00",
-          "closeTime": "17:00"
+          "openTime": "11:00",
+          "closeTime": "20:00"
         },
         "thursday": {
           "open": true,
-          "openTime": "09:00",
-          "closeTime": "17:00"
+          "openTime": "11:00",
+          "closeTime": "20:00"
         },
         "friday": {
           "open": true,
-          "openTime": "09:00",
-          "closeTime": "17:00"
+          "openTime": "11:00",
+          "closeTime": "21:00"
         },
         "saturday": {
-          "open": false
+          "open": true,
+          "openTime": "12:00",
+          "closeTime": "21:00"
         },
         "sunday": {
-          "open": false
+          "open": true,
+          "openTime": "12:00",
+          "closeTime": "18:00"
         }
       },
       "integrations": {},
       "n8nEnabled": false,
-      "systemPrompt": "You are a helpful restaurant assistant. You help customers with menu inquiries, reservations, hours, and general questions about the restaurant. Be warm, welcoming, and knowledgeable.",
-      "welcomeMessage": "Welcome! I'm here to help you with our menu, reservations, or any questions about our restaurant. How can I assist you today?",
-      "fallbackMessage": "I apologize, but I didn't understand your request. Could you please rephrase your question about our restaurant?"
+      "systemPrompt": "You are a helpful restaurant assistant for Royale With Cheese restaurant. You help customers with menu inquiries, reservations, hours, and general questions about the restaurant. Be warm, welcoming, and knowledgeable.",
+      "welcomeMessage": "Welcome to Royale With Cheese! I'm here to help you with our menu, reservations, or any questions about our restaurant. How can I assist you today?",
+      "fallbackMessage": "I apologize, but I didn't understand your request. Could you please rephrase your question about Royale With Cheese restaurant?"
     },
     "branding": {
       "primaryColor": "#3b82f6",
@@ -354,6 +365,6 @@
       }
     },
     "createdAt": "2025-06-07T15:47:07.007Z",
-    "updatedAt": "2025-06-07T15:47:07.007Z"
+    "updatedAt": "2025-06-08T12:26:38.404Z"
   }
 ]

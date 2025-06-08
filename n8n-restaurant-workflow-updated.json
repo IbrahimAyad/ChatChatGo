@@ -1,0 +1,205 @@
+{
+  "name": "ChatChatGo - ElevenLabs Production Integration",
+  "meta": {
+    "templateCreatedBy": "ChatChatGo",
+    "description": "Production-ready restaurant AI workflow integrated with ElevenLabs agent_01jx6z1ve6fqzv43akcfesaebe",
+    "version": "2.0",
+    "lastUpdated": "2025-06-08"
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "elevenlabs-conversation",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "ElevenLabs Conversation Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "elevenlabs-conversation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract conversation data from ElevenLabs webhook\nconst webhookData = $input.first().json;\n\n// Extract key information\nconst conversationId = webhookData.conversation_id || 'unknown';\nconst userId = webhookData.user_id || 'anonymous';\nconst message = webhookData.transcript || webhookData.message || '';\nconst agentId = webhookData.agent_id || 'agent_01jx6z1ve6fqzv43akcfesaebe';\n\n// Determine restaurant context (could be passed from ElevenLabs)\nconst tenantId = webhookData.restaurant_id || 'royale_with_cheese';\n\nreturn {\n  conversationId,\n  userId,\n  message,\n  agentId,\n  tenantId,\n  timestamp: new Date().toISOString(),\n  originalData: webhookData\n};"
+      },
+      "id": "extract-conversation-data",
+      "name": "Extract Conversation Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://chatchatgo.ai/api/menu",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 5000,
+          "fullResponse": false,
+          "redirect": {
+            "redirect": {}
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "restaurant",
+              "value": "={{ $json.tenantId }}"
+            }
+          ]
+        }
+      },
+      "id": "fetch-restaurant-data",
+      "name": "Fetch Live Restaurant Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process the conversation with real-time restaurant data\nconst conversationData = $('Extract Conversation Data').first().json;\nconst restaurantData = $('Fetch Live Restaurant Data').first().json;\n\nconst message = conversationData.message.toLowerCase();\nlet response = '';\nlet actionType = 'general';\nlet orderItems = [];\n\n// Enhanced conversation processing with real-time data\nif (message.includes('menu') || message.includes('food') || message.includes('eat')) {\n  response = `🍽️ Welcome to ${restaurantData.restaurant_name}! Today's specials:\\n\\n✨ **${restaurantData.current_special}**\\n🔥 Most Popular: ${restaurantData.popular_item}\\n📈 Trending: ${restaurantData.trending_item}\\n👨‍🍳 Chef's Recommendation: ${restaurantData.chef_recommendation}\\n\\nWe also have ${restaurantData.dietary_special}. What sounds good to you?`;\n  actionType = 'menu_inquiry';\n}\nelse if (message.includes('wait') || message.includes('time') || message.includes('busy')) {\n  response = `⏰ Current wait time is ${restaurantData.wait_time}.\\n\\nFor faster service:\\n🥡 Takeout: ${restaurantData.takeout_time}\\n🚚 Delivery: ${restaurantData.delivery_time}\\n\\nWould you like to place an order now?`;\n  actionType = 'wait_time';\n}\nelse if (message.includes('hours') || message.includes('open') || message.includes('closed')) {\n  response = `🕒 Our hours: ${restaurantData.business_hours}\\n\\n📍 Location: ${restaurantData.location}\\n📞 Phone: ${restaurantData.phone_number}\\n\\nWe're here and ready to serve you!`;\n  actionType = 'hours_info';\n}\nelse if (message.includes('order') || message.includes('want') || message.includes('get') || message.includes('buy')) {\n  response = `🛒 I'd love to help with your order!\\n\\nOur ${restaurantData.popular_item} is flying off the shelves today, and the ${restaurantData.chef_recommendation} is absolutely divine!\\n\\nWhat can I start you with?`;\n  actionType = 'order_intent';\n}\nelse if (message.includes('vegan') || message.includes('gluten') || message.includes('allergy')) {\n  response = `🌱 Great news! We have ${restaurantData.dietary_special}.\\n\\nI can help you find the perfect options that meet your dietary needs. What specific requirements do you have?`;\n  actionType = 'dietary_inquiry';\n}\nelse {\n  response = `Hello! I'm your AI assistant for ${restaurantData.restaurant_name}.\\n\\nI can help you with:\\n• Menu and specials\\n• Wait times and hours\\n• Placing orders\\n• Dietary accommodations\\n\\nWhat would you like to know?`;\n  actionType = 'general';\n}\n\nreturn {\n  conversationId: conversationData.conversationId,\n  agentId: conversationData.agentId,\n  response,\n  actionType,\n  orderItems,\n  restaurantData,\n  processedAt: new Date().toISOString()\n};"
+      },
+      "id": "process-conversation",
+      "name": "Process Conversation with Live Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.elevenlabs.io/v1/convai/conversations/{{ $json.conversationId }}/response",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.response }}"
+            },
+            {
+              "name": "agent_id",
+              "value": "={{ $json.agentId }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 10000,
+          "fullResponse": false
+        }
+      },
+      "id": "send-to-elevenlabs",
+      "name": "Send Response to ElevenLabs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1120, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "elevenlabs-api-auth",
+          "name": "ElevenLabs API Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "responseBody": "={{ JSON.stringify({\\n  success: true,\\n  conversationId: $('Process Conversation with Live Data').json.conversationId,\\n  response: $('Process Conversation with Live Data').json.response,\\n  actionType: $('Process Conversation with Live Data').json.actionType,\\n  timestamp: $('Process Conversation with Live Data').json.processedAt\\n}) }}",
+        "options": {
+          "responseHeaders": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      },
+      "id": "webhook-response",
+      "name": "Send Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Analytics and logging\nconst conversationData = $('Process Conversation with Live Data').first().json;\n\n// Log conversation for analytics\nconsole.log('[ANALYTICS] Conversation processed:', {\n  conversationId: conversationData.conversationId,\n  actionType: conversationData.actionType,\n  restaurant: conversationData.restaurantData.restaurant_name,\n  timestamp: conversationData.processedAt\n});\n\n// Could send to analytics service here\n// e.g., Mixpanel, Google Analytics, etc.\n\nreturn { logged: true };"
+      },
+      "id": "analytics-logger",
+      "name": "Analytics & Logging",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 500]
+    }
+  ],
+  "connections": {
+    "ElevenLabs Conversation Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Conversation Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Conversation Data": {
+      "main": [
+        [
+          {
+            "node": "Fetch Live Restaurant Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Live Restaurant Data": {
+      "main": [
+        [
+          {
+            "node": "Process Conversation with Live Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Conversation with Live Data": {
+      "main": [
+        [
+          {
+            "node": "Send Response to ElevenLabs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Analytics & Logging",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Response to ElevenLabs": {
+      "main": [
+        [
+          {
+            "node": "Send Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/New_York"
+  }
+} 

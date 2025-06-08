@@ -5,11 +5,13 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import TenantChatWidget from '@/components/widget/TenantChatWidget';
 import { Tenant } from '@/types/tenant';
+import Link from 'next/link';
 
-export default function MultiTenantDemo() {
+export default function ControlCenter() {
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [selectedTenant, setSelectedTenant] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('tenants');
 
   useEffect(() => {
     loadTenants();
@@ -68,8 +70,8 @@ export default function MultiTenantDemo() {
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-transparent mx-auto mb-4"></div>
             <div className="absolute inset-0 animate-ping rounded-full h-16 w-16 border-4 border-purple-400 opacity-20"></div>
           </div>
-          <p className="text-white text-lg font-medium">Loading multi-tenant demo...</p>
-          <p className="text-purple-200 text-sm mt-2">Preparing tenant showcase</p>
+          <p className="text-white text-lg font-medium">Loading ChatChatGo Control Center...</p>
+          <p className="text-purple-200 text-sm mt-2">Initializing systems</p>
         </div>
       </div>
     );
@@ -86,7 +88,7 @@ export default function MultiTenantDemo() {
               animate={{ opacity: 1, y: 0 }}
               className="text-4xl font-bold text-gray-900 mb-4"
             >
-              🏢 Multi-Tenant AI System
+              🎛️ ChatChatGo Control Center
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: -10 }}
@@ -94,7 +96,7 @@ export default function MultiTenantDemo() {
               transition={{ delay: 0.1 }}
               className="text-xl text-gray-600 mb-6"
             >
-              Experience how ChatChatGo creates isolated AI assistants for different businesses
+              Central command for managing AI assistants, demos, and platform tools
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -103,331 +105,606 @@ export default function MultiTenantDemo() {
               className="flex flex-wrap justify-center gap-4"
             >
               <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
-                ✅ Tenant Isolation
+                ✅ Multi-Tenant Management
               </div>
               <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-                🎨 Custom Branding
+                🎨 Demo Playground
               </div>
               <div className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
-                🤖 Industry-Specific AI
+                🤖 AI Tools & Testing
               </div>
               <div className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">
-                🔧 Configurable Settings
+                🔧 Development Center
               </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Stats Overview */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Tenant Selector */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">
-                🎯 Select a Tenant
-              </h2>
-              <p className="text-gray-600 mb-6 text-sm">
-                Choose a business to see their customized AI assistant in action
-              </p>
-              
-              <div className="space-y-3">
-                {tenants.map((tenant) => (
-                  <motion.button
-                    key={tenant.id}
-                    onClick={() => setSelectedTenant(tenant.id)}
-                    className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
-                      selectedTenant === tenant.id
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300 bg-white'
-                    }`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl">
-                          {getIndustryIcon(tenant.industry)}
-                        </span>
-                        <div>
-                          <h3 className="font-semibold text-gray-900 text-sm">
-                            {tenant.name}
-                          </h3>
-                          <p className="text-xs text-gray-500 capitalize">
-                            {tenant.industry}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(tenant.status)}`}>
-                          {tenant.status}
-                        </span>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {tenant.subscription}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.button>
-                ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-200 text-sm">Total Tenants</p>
+                <p className="text-white text-3xl font-bold">{tenants.length}</p>
               </div>
-
-              <div className="mt-6 pt-6 border-t">
-                <Button
-                  onClick={() => window.open('/admin', '_blank')}
-                  variant="outline"
-                  className="w-full"
-                >
-                  🔧 Admin Dashboard
-                </Button>
+              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                <span className="text-white text-xl">🏢</span>
               </div>
             </div>
           </div>
 
-          {/* Tenant Details & Demo */}
-          <div className="lg:col-span-2">
-            {selectedTenant && (
-              <TenantDetails 
-                tenant={tenants.find(t => t.id === selectedTenant)!} 
-              />
-            )}
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-200 text-sm">Active Tenants</p>
+                <p className="text-white text-3xl font-bold">{tenants.filter(t => t.status === 'active').length}</p>
+              </div>
+              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                <span className="text-white text-xl">✅</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-200 text-sm">Trial Tenants</p>
+                <p className="text-white text-3xl font-bold">{tenants.filter(t => t.status === 'trial').length}</p>
+              </div>
+              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+                <span className="text-white text-xl">🔥</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-200 text-sm">Total Conversations</p>
+                <p className="text-white text-3xl font-bold">3,164</p>
+              </div>
+              <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center">
+                <span className="text-white text-xl">💬</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Floating Chat Widget */}
-      {selectedTenant && (
-        <TenantChatWidget 
-          tenantId={selectedTenant}
-          key={selectedTenant} // Force re-render when tenant changes
-        />
-      )}
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 border border-white/20">
+          <nav className="flex space-x-2">
+            <button
+              onClick={() => setActiveTab('tenants')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'tenants'
+                  ? 'bg-white text-gray-900 shadow-lg'
+                  : 'text-white hover:bg-white/20'
+              }`}
+            >
+              🏢 Multi-Tenant Management
+            </button>
+            <button
+              onClick={() => setActiveTab('demos')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'demos'
+                  ? 'bg-white text-gray-900 shadow-lg'
+                  : 'text-white hover:bg-white/20'
+              }`}
+            >
+              🎨 Demo Playground
+            </button>
+            <button
+              onClick={() => setActiveTab('chat-test')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'chat-test'
+                  ? 'bg-white text-gray-900 shadow-lg'
+                  : 'text-white hover:bg-white/20'
+              }`}
+            >
+              🧪 Chat Test Center
+            </button>
+            <button
+              onClick={() => setActiveTab('tools')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'tools'
+                  ? 'bg-white text-gray-900 shadow-lg'
+                  : 'text-white hover:bg-white/20'
+              }`}
+            >
+              🤖 AI Tools & Testing
+            </button>
+            <button
+              onClick={() => setActiveTab('development')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'development'
+                  ? 'bg-white text-gray-900 shadow-lg'
+                  : 'text-white hover:bg-white/20'
+              }`}
+            >
+              🔧 Development Center
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      {/* Tab Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        {activeTab === 'tenants' && (
+          <TenantManagementTab 
+            tenants={tenants}
+            selectedTenant={selectedTenant}
+            setSelectedTenant={setSelectedTenant}
+            getIndustryIcon={getIndustryIcon}
+            getStatusColor={getStatusColor}
+          />
+        )}
+
+        {activeTab === 'demos' && <DemoPlaygroundTab />}
+        {activeTab === 'chat-test' && <ChatTestCenterTab />}
+        {activeTab === 'tools' && <AIToolsTab />}
+        {activeTab === 'development' && <DevelopmentCenterTab />}
+      </div>
     </div>
   );
 }
 
-function TenantDetails({ tenant }: { tenant: Tenant }) {
-  const [menuData, setMenuData] = useState<any>(null);
-  const [menuLoading, setMenuLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchMenuData = async () => {
-      if (tenant.industry === 'restaurant') {
-        setMenuLoading(true);
-        try {
-          const response = await fetch(`/api/tenants/${tenant.slug}/menu-data`);
-          if (response.ok) {
-            const data = await response.json();
-            setMenuData(data.menuData);
-          }
-        } catch (error) {
-          console.log('No menu data available');
-        } finally {
-          setMenuLoading(false);
-        }
-      }
-    };
-
-    fetchMenuData();
-  }, [tenant.slug, tenant.industry]);
+// Multi-Tenant Management Tab
+function TenantManagementTab({ tenants, selectedTenant, setSelectedTenant, getIndustryIcon, getStatusColor }: any) {
+  const selectedTenantData = tenants.find((t: Tenant) => t.id === selectedTenant);
 
   return (
-    <motion.div
-      key={tenant.id}
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="space-y-6"
-    >
-      {/* Business Info */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {tenant.name}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Tenant List */}
+      <div className="lg:col-span-1">
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">
+            🏢 All Tenants
           </h2>
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl">
-              {tenant.industry === 'restaurant' ? '🍽️' :
-               tenant.industry === 'retail' ? '🛍️' :
-               tenant.industry === 'healthcare' ? '🏥' : '🏢'}
-            </span>
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(tenant.status)}`}>
-              {tenant.status}
-            </span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Business Details</h3>
-            <div className="space-y-2 text-sm">
-              <p><span className="text-gray-500">Industry:</span> <span className="capitalize">{tenant.industry}</span></p>
-              <p><span className="text-gray-500">Plan:</span> <span className="capitalize">{tenant.subscription}</span></p>
-              <p><span className="text-gray-500">Owner:</span> {tenant.owner.name}</p>
-              <p><span className="text-gray-500">Email:</span> {tenant.owner.email}</p>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-2">AI Configuration</h3>
-            <div className="space-y-2 text-sm">
-              <p><span className="text-gray-500">Model:</span> {tenant.settings.aiModel}</p>
-              <p><span className="text-gray-500">Voice:</span> {tenant.settings.voiceEnabled ? '✅ Enabled' : '❌ Disabled'}</p>
-              <p><span className="text-gray-500">Temperature:</span> {tenant.settings.temperature}</p>
-              <p><span className="text-gray-500">Language:</span> {tenant.settings.language}</p>
-            </div>
-          </div>
-
-          {/* Menu Data Status - Only for restaurants */}
-          {tenant.industry === 'restaurant' && (
-            <div className="md:col-span-2">
-              <h3 className="font-semibold text-gray-700 mb-2">🍽️ Menu Data Status</h3>
-              {menuLoading ? (
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-                  <span>Loading menu data...</span>
-                </div>
-              ) : menuData ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span className="text-green-800 font-medium">Menu Data Available</span>
-                  </div>
-                  <div className="space-y-1 text-sm text-green-700">
-                    <p><span className="font-medium">Restaurant:</span> {menuData.restaurantName || 'Unknown'}</p>
-                    <p><span className="font-medium">Menu Items:</span> {menuData.menu?.length || 0}</p>
-                    <p><span className="font-medium">Last Updated:</span> {menuData.lastUpdated ? new Date(menuData.lastUpdated).toLocaleDateString() : 'Unknown'}</p>
-                    <p><span className="font-medium">Data Source:</span> {menuData.dataSource || 'Unknown'}</p>
-                    {menuData.source && (
-                      <p><span className="font-medium">Source URL:</span> 
-                        <a href={menuData.source} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
-                          {menuData.source.length > 40 ? menuData.source.substring(0, 40) + '...' : menuData.source}
-                        </a>
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    <span className="text-yellow-800 font-medium">No Menu Data</span>
-                  </div>
-                  <p className="text-sm text-yellow-700">
-                    This restaurant hasn't uploaded menu data yet. Use the{' '}
-                    <a href="/customer-setup" className="text-blue-600 hover:underline">Customer Setup Wizard</a>{' '}
-                    or <a href="/menu-manager" className="text-blue-600 hover:underline">Menu Manager</a> to add menu information.
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Branding Preview */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">🎨 Custom Branding</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 className="font-semibold text-gray-700 mb-3">Color Scheme</h4>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <div 
-                  className="w-8 h-8 rounded-full border border-gray-300"
-                  style={{ backgroundColor: tenant.branding.primaryColor }}
-                ></div>
-                <span className="text-sm">Primary: {tenant.branding.primaryColor}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div 
-                  className="w-8 h-8 rounded-full border border-gray-300"
-                  style={{ backgroundColor: tenant.branding.secondaryColor }}
-                ></div>
-                <span className="text-sm">Secondary: {tenant.branding.secondaryColor}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div 
-                  className="w-8 h-8 rounded-full border border-gray-300"
-                  style={{ backgroundColor: tenant.branding.accentColor }}
-                ></div>
-                <span className="text-sm">Accent: {tenant.branding.accentColor}</span>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-gray-700 mb-3">Widget Settings</h4>
-            <div className="space-y-2 text-sm">
-              <p><span className="text-gray-500">Position:</span> {tenant.branding.widgetPosition}</p>
-              <p><span className="text-gray-500">Size:</span> {tenant.branding.widgetSize}</p>
-              <p><span className="text-gray-500">Font:</span> {tenant.branding.fontFamily}</p>
-              <p><span className="text-gray-500">Border Radius:</span> {tenant.branding.borderRadius}px</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Usage Stats */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">📊 Usage Statistics</h3>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-blue-50 rounded-lg">
-            <p className="text-2xl font-bold text-blue-600">
-              {tenant.usage.totalAllTime.conversations.toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-600">Total Conversations</p>
-          </div>
-          
-          <div className="text-center p-4 bg-green-50 rounded-lg">
-            <p className="text-2xl font-bold text-green-600">
-              {tenant.usage.totalAllTime.uniqueUsers.toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-600">Unique Users</p>
-          </div>
-          
-          <div className="text-center p-4 bg-purple-50 rounded-lg">
-            <p className="text-2xl font-bold text-purple-600">
-              {tenant.usage.totalAllTime.voiceMinutes.toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-600">Voice Minutes</p>
-          </div>
-          
-          <div className="text-center p-4 bg-orange-50 rounded-lg">
-            <p className="text-2xl font-bold text-orange-600">
-              {tenant.usage.totalAllTime.leads.toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-600">Leads Generated</p>
-          </div>
-        </div>
-      </div>
-
-      {/* System Prompt Preview */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">🧠 AI System Prompt</h3>
-        <div className="bg-gray-50 p-4 rounded-lg">
-          <p className="text-sm text-gray-700 font-mono leading-relaxed">
-            {tenant.settings.systemPrompt}
+          <p className="text-gray-600 mb-6 text-sm">
+            Manage your multi-tenant ecosystem
           </p>
-        </div>
-        <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-blue-800 text-sm">
-            💡 <strong>Try the chat widget</strong> in the bottom-right corner to see this AI in action!
-          </p>
+          
+          <div className="space-y-3">
+            {tenants.map((tenant: Tenant) => (
+              <motion.button
+                key={tenant.id}
+                onClick={() => setSelectedTenant(tenant.id)}
+                className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                  selectedTenant === tenant.id
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300 bg-white'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">{getIndustryIcon(tenant.industry)}</span>
+                    <span className="font-medium text-gray-900">{tenant.name}</span>
+                  </div>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(tenant.status)}`}>
+                    {tenant.status}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 truncate">{tenant.id}</p>
+              </motion.button>
+            ))}
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <Link href="/customer-setup">
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                ➕ Add New Tenant
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
-    </motion.div>
+
+      {/* Tenant Details */}
+      <div className="lg:col-span-2">
+        {selectedTenantData ? (
+          <TenantDetails tenant={selectedTenantData} />
+        ) : (
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+            <div className="text-gray-400 text-6xl mb-4">🏢</div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Select a Tenant</h3>
+            <p className="text-gray-600">Choose a tenant from the list to view details and manage their AI assistant</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
-function getStatusColor(status: string) {
-  switch (status) {
-    case 'active': return 'bg-green-100 text-green-800';
-    case 'trial': return 'bg-blue-100 text-blue-800';
-    case 'inactive': return 'bg-gray-100 text-gray-800';
-    case 'suspended': return 'bg-red-100 text-red-800';
-    default: return 'bg-gray-100 text-gray-800';
-  }
-} 
+// Demo Playground Tab
+function DemoPlaygroundTab() {
+  const demos = [
+    {
+      title: '🧠 Smart Context Demo',
+      description: 'Intelligent conversation flow with context awareness',
+      link: '/smart-context-demo',
+      icon: '🧠',
+      color: 'from-orange-500 to-red-500'
+    },
+    {
+      title: '🎤 Voice Intelligence Demo',
+      description: 'Advanced voice processing and conversation capabilities',
+      link: '/voice-intelligence',
+      icon: '🎤',
+      color: 'from-purple-500 to-pink-500'
+    },
+    {
+      title: '🍽️ Restaurant Intelligence',
+      description: 'Full restaurant AI assistant with menu integration',
+      link: '/restaurant-intelligence',
+      icon: '🍽️',
+      color: 'from-green-500 to-teal-500'
+    },
+    {
+      title: '🤖 AI Intelligence Demo',
+      description: 'Core AI capabilities and reasoning demonstration',
+      link: '/ai-intelligence-demo',
+      icon: '🤖',
+      color: 'from-blue-500 to-indigo-500'
+    }
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {demos.map((demo, index) => (
+        <motion.div
+          key={demo.title}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
+          className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+        >
+          <div className={`h-2 bg-gradient-to-r ${demo.color}`}></div>
+          <div className="p-6">
+            <div className="flex items-center mb-4">
+              <div className={`w-12 h-12 bg-gradient-to-r ${demo.color} rounded-lg flex items-center justify-center mr-4`}>
+                <span className="text-white text-xl">{demo.icon}</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900">{demo.title}</h3>
+            </div>
+            <p className="text-gray-600 mb-6">{demo.description}</p>
+            <Link href={demo.link}>
+              <Button className={`w-full bg-gradient-to-r ${demo.color} text-white hover:opacity-90`}>
+                🚀 Launch Demo
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Chat Test Center Tab
+function ChatTestCenterTab() {
+  const chatInterfaces = [
+    {
+      title: '🎯 Classic Chat Interface',
+      description: 'Clean, minimal design with focus on conversation flow',
+      image: '/api/placeholder/400/250',
+      link: '/chat-test/classic',
+      icon: '💬',
+      color: 'from-blue-500 to-indigo-500',
+      features: ['Clean UI', 'Fast Loading', 'Mobile Optimized']
+    },
+    {
+      title: '🌟 Premium Chat Experience',
+      description: 'Enhanced UI with animations and advanced features',
+      image: '/api/placeholder/400/250',
+      link: '/chat-test/premium',
+      icon: '✨',
+      color: 'from-purple-500 to-pink-500',
+      features: ['Animations', 'Rich Media', 'Voice Integration']
+    },
+    {
+      title: '🚀 Futuristic Chat Lab',
+      description: 'Experimental interface with cutting-edge design',
+      image: '/api/placeholder/400/250',
+      link: '/chat-test/futuristic',
+      icon: '🔮',
+      color: 'from-cyan-500 to-blue-500',
+      features: ['3D Elements', 'Micro Interactions', 'AI Insights']
+    }
+  ];
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="text-center">
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold text-white mb-4"
+        >
+          🧪 Chat Test Center
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-xl text-purple-200 mb-8"
+        >
+          Laboratory for testing different chat interface designs and experiences
+        </motion.p>
+        <div className="bg-yellow-500/20 border border-yellow-400/30 rounded-lg p-4 text-yellow-200 max-w-2xl mx-auto">
+          <p className="text-sm">
+            🔬 <strong>Lab Environment:</strong> Each interface opens in a new tab for isolated testing. 
+            Same AI functionality, different user experiences.
+          </p>
+        </div>
+      </div>
+
+      {/* Chat Interface Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {chatInterfaces.map((chatInterface, index) => (
+          <motion.div
+            key={chatInterface.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
+          >
+            {/* Preview Image */}
+            <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+              <div className={`w-24 h-24 bg-gradient-to-r ${chatInterface.color} rounded-full flex items-center justify-center text-white text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                {chatInterface.icon}
+              </div>
+              <div className="absolute top-4 right-4 bg-black/20 text-white px-2 py-1 rounded text-xs">
+                Preview
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              <div className="flex items-center mb-3">
+                <div className={`w-8 h-8 bg-gradient-to-r ${chatInterface.color} rounded-lg flex items-center justify-center mr-3`}>
+                  <span className="text-white text-sm">{chatInterface.icon}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">{chatInterface.title}</h3>
+              </div>
+              
+              <p className="text-gray-600 mb-4 text-sm">{chatInterface.description}</p>
+              
+              {/* Features */}
+              <div className="space-y-2 mb-6">
+                {chatInterface.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-center text-sm text-gray-600">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                    {feature}
+                  </div>
+                ))}
+              </div>
+
+              {/* Test Button */}
+              <button
+                onClick={() => window.open(chatInterface.link, '_blank', 'noopener,noreferrer')}
+                className={`w-full bg-gradient-to-r ${chatInterface.color} text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-all duration-200 shadow-lg hover:shadow-xl`}
+              >
+                🚀 Open Test Environment
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Lab Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-200 text-sm">Active Tests</p>
+              <p className="text-white text-2xl font-bold">3</p>
+            </div>
+            <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+              <span className="text-white text-lg">🧪</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-200 text-sm">Interface Variants</p>
+              <p className="text-white text-2xl font-bold">3</p>
+            </div>
+            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+              <span className="text-white text-lg">🎨</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-200 text-sm">Test Sessions</p>
+              <p className="text-white text-2xl font-bold">127</p>
+            </div>
+            <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+              <span className="text-white text-lg">📊</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// AI Tools Tab
+function AIToolsTab() {
+  const tools = [
+    {
+      title: '🎙️ Voice Testing Lab',
+      description: 'Test ElevenLabs voices and speech recognition',
+      link: '/voice-test',
+      icon: '🎙️',
+      color: 'from-pink-500 to-rose-500'
+    },
+    {
+      title: '📞 Voice Conversation Test',
+      description: 'End-to-end voice conversation testing',
+      link: '/voice-conversation',
+      icon: '📞',
+      color: 'from-cyan-500 to-blue-500'
+    },
+    {
+      title: '🔧 ElevenLabs API Test',
+      description: 'Direct API testing and voice generation',
+      link: '/test-elevenlabs-api',
+      icon: '🔧',
+      color: 'from-emerald-500 to-teal-500'
+    },
+    {
+      title: '🎨 UI Builder',
+      description: 'Visual component and interface builder',
+      link: '/ui-builder',
+      icon: '🎨',
+      color: 'from-violet-500 to-purple-500'
+    },
+    {
+      title: '🎯 Widget Tiers Demo',
+      description: 'Compare subscription tiers and UI variations',
+      link: '/widget-tiers-demo',
+      icon: '🎯',
+      color: 'from-indigo-500 to-blue-500'
+    }
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {tools.map((tool, index) => (
+        <motion.div
+          key={tool.title}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: index * 0.1 }}
+          className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+        >
+          <div className={`h-2 bg-gradient-to-r ${tool.color}`}></div>
+          <div className="p-6">
+            <div className="flex items-center mb-4">
+              <div className={`w-12 h-12 bg-gradient-to-r ${tool.color} rounded-lg flex items-center justify-center mr-4`}>
+                <span className="text-white text-xl">{tool.icon}</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900">{tool.title}</h3>
+            </div>
+            <p className="text-gray-600 mb-6">{tool.description}</p>
+            <Link href={tool.link}>
+              <Button className={`w-full bg-gradient-to-r ${tool.color} text-white hover:opacity-90`}>
+                🛠️ Open Tool
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Development Center Tab
+function DevelopmentCenterTab() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* System Status */}
+      <div className="bg-white rounded-xl shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+          <span className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+            <span className="text-white text-sm">⚡</span>
+          </span>
+          System Status
+        </h3>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+            <span className="text-gray-700">OpenAI API</span>
+            <span className="text-green-600 font-medium">✅ Operational</span>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+            <span className="text-gray-700">ElevenLabs API</span>
+            <span className="text-green-600 font-medium">✅ Operational</span>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+            <span className="text-gray-700">Voice Processing</span>
+            <span className="text-green-600 font-medium">✅ Operational</span>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+            <span className="text-gray-700">Database</span>
+            <span className="text-green-600 font-medium">✅ Operational</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="bg-white rounded-xl shadow-lg p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+          <span className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+            <span className="text-white text-sm">🚀</span>
+          </span>
+          Quick Actions
+        </h3>
+        <div className="space-y-3">
+          <Link href="/customer-setup">
+            <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white justify-start">
+              ⚡ Business Onboarding Center
+            </Button>
+          </Link>
+          <Button className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white justify-start">
+            📊 Analytics Dashboard
+          </Button>
+          <Button className="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white justify-start">
+            🔧 API Documentation
+          </Button>
+          <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white justify-start">
+            💻 Developer Console
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Tenant Details Component (simplified for space)
+function TenantDetails({ tenant }: { tenant: Tenant }) {
+  return (
+    <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+          <span className="text-2xl mr-3">{tenant.industry === 'restaurant' ? '🍽️' : '🏢'}</span>
+          {tenant.name}
+        </h2>
+        <Link href={`/dashboard/${tenant.id}`}>
+          <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            📊 View Dashboard
+          </Button>
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <p className="text-sm text-gray-600">Status</p>
+          <p className="font-medium capitalize">{tenant.status}</p>
+        </div>
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <p className="text-sm text-gray-600">Industry</p>
+          <p className="font-medium capitalize">{tenant.industry}</p>
+        </div>
+      </div>
+
+      <div className="border-t pt-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">AI Assistant Preview</h3>
+        <div className="bg-gray-50 rounded-lg p-4">
+          <TenantChatWidget tenantId={tenant.id} />
+        </div>
+      </div>
+    </div>
+  );
+}

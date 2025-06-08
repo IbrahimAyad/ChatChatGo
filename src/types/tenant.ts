@@ -182,12 +182,46 @@ export type TenantStatus =
   | 'trial'
   | 'expired';
 
-export type SubscriptionPlan = 
-  | 'free'
-  | 'starter'
-  | 'professional'
-  | 'enterprise'
-  | 'custom';
+export type SubscriptionTier = 'basic' | 'professional' | 'enterprise' | 'custom';
+
+export interface SubscriptionPlan {
+  tier: SubscriptionTier;
+  name: string;
+  price: number;
+  features: {
+    voiceChat: boolean;
+    textChat: boolean;
+    fileUpload: boolean;
+    analytics: boolean;
+    leadCapture: boolean;
+    appointments: boolean;
+    payments: boolean;
+    multiLanguage: boolean;
+    webhooks: boolean;
+    apiAccess: boolean;
+    whiteLabel: boolean;
+    customDomain: boolean;
+    maxConversationsPerMonth: number;
+    maxUsersPerMonth: number;
+    maxStorageGB: number;
+  };
+  ui: {
+    theme: 'basic' | 'professional' | 'premium' | 'custom';
+    animations: boolean;
+    customBranding: boolean;
+    advancedLayout: boolean;
+    premiumEffects: boolean;
+  };
+}
+
+export interface ChatWidgetConfig {
+  tier: SubscriptionTier;
+  theme: 'basic' | 'professional' | 'premium' | 'custom';
+  layout: 'minimal' | 'standard' | 'advanced' | 'luxury';
+  animations: boolean;
+  effects: boolean;
+  customBranding: boolean;
+}
 
 // Tenant-specific chat data
 export interface TenantChatBot {

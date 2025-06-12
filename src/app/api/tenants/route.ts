@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CreateTenantRequest, Tenant, TenantScrapedMenuData } from '@/types/tenant';
+import { SubscriptionPlan } from "@/types";
 import { TenantStorage } from '@/lib/tenant-storage';
 
 // Global storage for menu data (same as used by menu APIs)
@@ -19,7 +20,7 @@ const mockTenants: Tenant[] = [
     slug: 'mario-restaurant',
     industry: 'restaurant',
     status: 'active',
-    subscription: 'professional',
+    subscription: 'growth' as SubscriptionPlan,
     settings: {
       aiModel: 'gpt-3.5-turbo',
       systemPrompt: `You are a helpful restaurant assistant for Mario's Italian Restaurant. You help customers with menu inquiries, reservations, hours, and general questions about our authentic Italian cuisine. Be warm, welcoming, and knowledgeable about Italian food.`,
@@ -113,7 +114,7 @@ const mockTenants: Tenant[] = [
     slug: 'techstore-retail',
     industry: 'retail',
     status: 'active',
-    subscription: 'starter',
+    subscription: 'starter' as const,
     settings: {
       aiModel: 'gpt-3.5-turbo',
       systemPrompt: `You are a helpful customer service assistant for TechStore Electronics. You help customers with product information, availability, technical specs, warranties, and general shopping questions. Be knowledgeable, helpful, and professional.`,
@@ -447,7 +448,7 @@ function getFeaturesByPlan(plan: string) {
       maxUsersPerMonth: 200,
       maxStorageGB: 1,
     },
-    professional: {
+    growth: {
       voiceChat: true,
       textChat: true,
       fileUpload: true,

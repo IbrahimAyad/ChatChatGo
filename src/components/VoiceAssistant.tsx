@@ -318,26 +318,17 @@ export default function VoiceAssistant({
         const { elevenLabsTTS, getRestaurantVoice } = await import('../lib/elevenlabs');
         console.log('✅ ElevenLabs module imported successfully');
         
-        // Test API connection first
-        const isConnected = await elevenLabsTTS.testConnection();
-        console.log('🔗 ElevenLabs connection test:', isConnected ? 'SUCCESS' : 'FAILED');
+        // Use professional voice for restaurant responses
+        const voiceId = getRestaurantVoice('professional');
+        console.log('🎯 Using voice ID:', voiceId);
         
-        if (isConnected) {
-          // Use professional voice for restaurant responses
-          const voiceId = getRestaurantVoice('professional');
-          console.log('🎯 Using voice ID:', voiceId);
-          
-          // Try ElevenLabs first for natural voice
-          const success = await elevenLabsTTS.speak(text, voiceId);
-          
-          if (success) {
-            console.log('✅ ElevenLabs speech completed successfully');
-            return; // Exit early on success
-          } else {
-            console.log('⚠️ ElevenLabs speak() returned false, trying fallback');
-          }
-        } else {
-          console.log('⚠️ ElevenLabs connection failed, using fallback TTS');
+        // Try ElevenLabs for natural voice
+        try {
+          await elevenLabsTTS(text, voiceId);
+          console.log('✅ ElevenLabs speech completed successfully');
+          return; // Exit early on success
+        } catch (err) {
+          console.log('⚠️ ElevenLabs TTS failed, using fallback TTS');
         }
       } catch (importError) {
         console.error('❌ Failed to import ElevenLabs module:', importError);

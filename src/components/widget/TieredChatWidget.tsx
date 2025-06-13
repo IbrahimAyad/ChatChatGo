@@ -52,8 +52,8 @@ export function TieredChatWidget({
 
   // Get tier configuration
   const uiConfig = getTierUI(tier);
-  const hasVoiceFeature = isTierFeatureEnabled(tier, 'voiceChat');
-  const hasAnalytics = isTierFeatureEnabled(tier, 'analytics');
+  const hasVoiceFeature = Boolean(isTierFeatureEnabled(tier, 'voiceChat'));
+  const hasAnalytics = Boolean(isTierFeatureEnabled(tier, 'analytics'));
 
   // Render appropriate widget based on tier
   switch (tier) {

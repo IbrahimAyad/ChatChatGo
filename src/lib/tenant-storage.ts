@@ -18,7 +18,7 @@ const defaultTenants: Tenant[] = [
     slug: 'mario-restaurant',
     industry: 'restaurant',
     status: 'active',
-    subscription: 'professional',
+    subscription: 'growth',
     settings: {
       aiModel: 'gpt-3.5-turbo',
       systemPrompt: `You are a helpful restaurant assistant for Mario's Italian Restaurant. You help customers with menu inquiries, reservations, hours, and general questions about our authentic Italian cuisine. Be warm, welcoming, and knowledgeable about Italian food.`,

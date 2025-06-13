@@ -29,12 +29,12 @@ export default function TestVoice() {
       setStatus('✅ Connected! Generating speech...');
       
       // Call ElevenLabs TTS directly
-      const audioData = await elevenLabsTTS(testText, voiceId);
+      const audioData: ArrayBuffer | Blob = await elevenLabsTTS(testText, voiceId);
       
       if (audioData && isClient) {
         // Play the audio
         const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-        const arrayBuffer = audioData instanceof ArrayBuffer ? audioData : await audioData.arrayBuffer();
+        const arrayBuffer = audioData instanceof ArrayBuffer ? audioData : await (audioData as Blob).arrayBuffer();
         const decodedAudio = await audioContext.decodeAudioData(arrayBuffer);
         
         const source = audioContext.createBufferSource();

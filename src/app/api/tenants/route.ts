@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { CreateTenantRequest, Tenant, TenantScrapedMenuData } from '@/types/tenant';
+import { CreateTenantRequest, Tenant, TenantScrapedMenuData, SubscriptionPlanDetails } from '@/types/tenant';
 import { SubscriptionPlan } from "@/types";
 import { TenantStorage } from '@/lib/tenant-storage';
 
@@ -20,7 +20,7 @@ const mockTenants: Tenant[] = [
     slug: 'mario-restaurant',
     industry: 'restaurant',
     status: 'active',
-    subscription: 'growth' as SubscriptionPlan,
+    subscription: 'growth',
     settings: {
       aiModel: 'gpt-3.5-turbo',
       systemPrompt: `You are a helpful restaurant assistant for Mario's Italian Restaurant. You help customers with menu inquiries, reservations, hours, and general questions about our authentic Italian cuisine. Be warm, welcoming, and knowledgeable about Italian food.`,
@@ -114,7 +114,7 @@ const mockTenants: Tenant[] = [
     slug: 'techstore-retail',
     industry: 'retail',
     status: 'active',
-    subscription: 'starter' as const,
+    subscription: 'starter',
     settings: {
       aiModel: 'gpt-3.5-turbo',
       systemPrompt: `You are a helpful customer service assistant for TechStore Electronics. You help customers with product information, availability, technical specs, warranties, and general shopping questions. Be knowledgeable, helpful, and professional.`,
@@ -300,7 +300,7 @@ export async function POST(request: NextRequest) {
         ...createRequest.owner,
         role: 'owner',
       },
-      features: getFeaturesByPlan(createRequest.subscription || 'starter'),
+      features: getFeaturesByPlan((createRequest.subscription || 'starter') as SubscriptionPlan),
       usage: {
         currentMonth: {
           conversations: 0,
@@ -412,7 +412,7 @@ function getDefaultBranding() {
   };
 }
 
-function getFeaturesByPlan(plan: string) {
+function getFeaturesByPlan(plan: SubscriptionPlan) {
   const plans = {
     free: {
       voiceChat: false,

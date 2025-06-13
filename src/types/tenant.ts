@@ -1,3 +1,5 @@
+import { SubscriptionPlan } from './index';
+
 // Multi-Tenant System Types
 
 export interface Tenant {
@@ -182,9 +184,7 @@ export type TenantStatus =
   | 'trial'
   | 'expired';
 
-export type SubscriptionTier = 'basic' | 'professional' | 'enterprise' | 'custom';
-
-export interface SubscriptionPlan {
+export interface SubscriptionPlanDetails {
   tier: SubscriptionTier;
   name: string;
   price: number;
@@ -869,4 +869,6 @@ export interface PersonalizationEngine {
   intelligentUpselling: boolean;
   maxUpsellAttempts: number;
   upsellBehavior: 'gentle' | 'moderate' | 'aggressive';
-} 
+}
+
+export type SubscriptionTier = 'basic' | 'professional' | 'enterprise' | 'custom'; 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import { SubscriptionPlan } from '@/types';
 
 interface SetupStep {
   id: string;
@@ -98,7 +99,7 @@ export default function CustomerSetup() {
           name: customerData.businessName,
           slug: tenantId,
           industry: customerData.industry,
-          subscription: 'professional',
+          subscription: 'professional' as SubscriptionPlan,
           owner: {
             email: customerData.email || `contact@${tenantId}.com`,
             name: customerData.name || 'Restaurant Owner',

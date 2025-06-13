@@ -1,6 +1,6 @@
-import { SubscriptionPlan, SubscriptionTier } from '@/types/tenant';
+import { SubscriptionPlanDetails, SubscriptionTier } from '@/types/tenant';
 
-export const SUBSCRIPTION_PLANS: Record<SubscriptionTier, SubscriptionPlan> = {
+export const SUBSCRIPTION_PLANS: Record<SubscriptionTier, SubscriptionPlanDetails> = {
   basic: {
     tier: 'basic',
     name: 'Basic Chat',
@@ -130,6 +130,6 @@ export const getTierUI = (tier: SubscriptionTier) => {
   return SUBSCRIPTION_PLANS[tier]?.ui;
 };
 
-export const isTierFeatureEnabled = (tier: SubscriptionTier, feature: keyof SubscriptionPlan['features']) => {
+export const isTierFeatureEnabled = (tier: SubscriptionTier, feature: keyof SubscriptionPlanDetails['features']) => {
   return SUBSCRIPTION_PLANS[tier]?.features[feature] || false;
 }; 

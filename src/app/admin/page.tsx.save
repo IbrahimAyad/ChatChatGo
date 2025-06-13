@@ -1,0 +1,203 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/Button';
+import { Tenant } from '@/types/tenant';
+
+export default function AdminDashboard() {
+  const [tenants, setTenants] = useState<Tenant[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [testingTenant, setTestingTenant] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadTenants();
+  }, []);
+
+  const loadTenants = async () => {
+    try {
+      const response = await fetch('/api/tenants');
+      const data = await response.json();
+      setTenants(data.tenants || []);
+    } catch (error) {
+      console.error('Failed to load tenants:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'bg-green-500/20 text-green-300 border-green-400/30';
+      case 'trial': return 'bg-yellow-500/20 text-yellow-300 border-yellow-400/30';
+      case 'inactive': return 'bg-gray-500/20 text-gray-300 border-gray-400/30';
+      case 'suspended': return 'bg-red-500/20 text-red-300 border-red-400/30';
+      default: return 'bg-gray-500/20 text-gray-300 border-gray-400/30';
+    }
+  };
+
+  const getPlanColor = (plan: string) => {
+    switch (plan) {
+      case 'enterprise': return 'bg-purple-500/20 text-purple-300 border-purple-400/30';
+      case 'growth': return 'bg-blue-500/20 text-blue-300 border-blue-400/30';
+      case 'starter': return 'bg-green-500/20 text-green-300 border-green-400/30';
+      case 'custom': return 'bg-orange-500/20 text-orange-300 border-orange-400/30';
+      default: return 'bg-gray-500/20 text-gray-300 border-gray-400/30';
+    }
+  };
+
+  const getMenuStatus = (tenant: Tenant) => {
+    const menuData = tenant.settings.scrapedMenuData;
+    
+    if (!menuData) {
+      return {
+        status: 'no-menu',
+        label: 'No Menu',
+        icon: '📋',
+        color: 'bg-gray-500/20 text-gray-300 border-gray-400/30',
+        description: 'No menu data available'
+      };
+    }
+
+    const itemCount = menuData.menu?.length || 0;
+    const isStale = menuData.isStale;
+    const lastScraped = menuData.lastScraped ? new Date(menuData.lastScraped) : null;
+    const daysSinceUpdate = lastScraped ? Math.floor((Date.now() - lastScraped.getTime()) / (1000 * 60 * 60 * 24)) : null;
+
+    if (itemCount === 0) {
+      return {
+        status: 'empty',
+        label: 'Empty Menu',
+        icon: '⚠️',
+        color: 'bg-orange-500/20 text-orange-300 border-orange-400/30',
+        description: 'Menu scraped but no items found - manual upload needed'
+      };
+    }
+
+    if (isStale || (daysSinceUpdate && daysSinceUpdate > 7)) {
+      return {
+        status: 'stale',
+        label: 'Outdated',
+        icon: '🔄',
+        color: 'bg-yellow-500/20 text-yellow-300 border-yellow-400/30',
+        description: `Menu data is ${daysSinceUpdate} days old - needs refresh`
+      };
+    }
+
+    if (itemCount < 5) {
+      return {
+        status: 'incomplete',
+        label: 'Incomplete',
+        icon: '📝',
+        color: 'bg-blue-500/20 text-blue-300 border-blue-400/30',
+        description: `Only ${itemCount} items found - may need manual completion`
+      };
+    }
+
+    return {
+      status: 'healthy',
+      label: 'Active',
+      icon: '✅',
+      color: 'bg-green-500/20 text-green-300 border-green-400/30',
+      description: `${itemCount} menu items available`
+    };
+  };
+
+  const testTenantChat = async (tenantId: string) => {
+    setTestingTenant(tenantId);
+    try {
+      const response = await fetch('/api/chat/tenant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tenantId,
+          message: 'Hello! This is a test message from the admin dashboard.',
+          sessionId: `admin-test-${Date.now()}`,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        alert(`✅ Chat test successful!\n\nResponse: ${data.response}`);
+      } else {
+        alert(`❌ Chat test failed!\n\nError: ${data.error}`);
+      }
+    } catch (error) {
+      alert(`❌ Chat test failed!\n\nError: ${error}`);
+    } finally {
+      setTestingTenant(null);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-white text-lg font-medium">Loading admin dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="bg-white/10 backdrop-blur-md border-b border-white/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">
+                🏢 Multi-Tenant Admin Dashboard
+              </h1>
+              <p className="text-purple-200">
+                Manage all tenants and their AI assistants
+              </p>
+            </div>
+            <Button
+              onClick={loadTenants}
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium backdrop-blur-sm transition-all duration-200"
+            >
+              🔄 Refresh
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-6">
+          <h2 className="text-xl font-bold text-white mb-4">Tenants ({tenants.length})</h2>
+          {tenants.length > 0 ? (
+            <div className="space-y-4">
+              {tenants.map((tenant: Tenant) => (
+                <div key={tenant.id} className="bg-white/5 rounded-lg p-4 border border-white/10">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-white font-semibold">{tenant.name}</h3>
+                      <p className="text-purple-200 text-sm">{tenant.slug}</p>
+                    </div>
+                    <div className="flex space-x-2">
+                      <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">
+                        {String(tenant.status || 'active')}
+                      </span>
+<span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
+  {tenant.subscription ? String(tenant.subscription) : 'starter'}
+                      <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
+                      <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                      </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-purple-200">No tenants found.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+} 

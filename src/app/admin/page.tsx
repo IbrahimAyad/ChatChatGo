@@ -182,7 +182,7 @@ export default function AdminDashboard() {
                         {String(tenant.status || 'active')}
                       </span>
                       <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
-                        {String(tenant.subscription as string || 'starter')}
+                        {tenant.subscription || 'starter'}
                       </span>
                     </div>
                   </div>
